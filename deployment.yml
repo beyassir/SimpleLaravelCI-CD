@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: simplelaravel
+  name: simplelaravel
+spec:
+  ports:
+    - name: web
+      port: 80
+      targetPort: 8080
+  selector:
+    app: simplelaravel
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simplelaravel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simplelaravel
+  template:
+    metadata:
+      labels:
+        app: simplelaravel
+    spec:
+      containers:
+        - name: simplelaravel
+          image: gcr.io/$PROJECT_ID/simplelaravel:$GITHUB_SHA
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_DATABASE
+              value: laravel
+            - name: DB_USERNAME
+              value: root
+            - name: DB_PASSWORD
+              value: devpass
+            - name: DB_HOST
+              value: my-release-mysql
+---
+
