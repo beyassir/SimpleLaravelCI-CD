@@ -42,3 +42,9 @@ jobs:
       - name: Publish
         run: |-
           docker push "gcr.io/$PROJECT_ID/simplelaravel:$GITHUB_SHA"
+
+        # Deploy the Docker image to the GKE cluster
+      - name: Deploy
+        run: |-
+          envsubst < deployment.yml | kubectl apply -f -
+          kubectl rollout status deployment/simplelaravel
