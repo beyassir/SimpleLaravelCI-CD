@@ -43,6 +43,8 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 # Copy existing application directory contents
 COPY --chown=www:www --from=build /app /var/www
 
+# Generate key 
+RUN php artisan key:generate
 # Allow access to logs for www
 RUN chmod o+rwx /var/log/nginx
 RUN chmod o+rw /var/log/nginx/*
@@ -57,8 +59,8 @@ COPY ./docker/supervisord.conf /etc/supervisord.conf
 # Change current user to www
 USER www
 
-# Expose port 9000 and start php-fpm server
-EXPOSE 80
+# Expose port 8080 and start supervisord
+EXPOSE 8080
 CMD supervisord -n -c /etc/supervisord.conf
 
 

@@ -5,10 +5,10 @@ metadata:
     app: simplelaravel
   name: simplelaravel
 spec:
+  type: LoadBalancer
   ports:
     - name: web
-      port: 80
-      targetPort: 8080
+      port: 8080
   selector:
     app: simplelaravel
 
@@ -47,6 +47,6 @@ spec:
             - name: DB_PASSWORD
               value: devpass
             - name: DB_HOST
-              value: my-release-mysql
+              value: my-release-with-set-mysql
 ---
 
