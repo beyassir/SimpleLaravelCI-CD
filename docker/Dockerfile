@@ -43,8 +43,6 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 # Copy existing application directory contents
 COPY --chown=www:www --from=build /app /var/www
 
-# Generate key 
-RUN php artisan key:generate
 # Allow access to logs for www
 RUN chmod o+rwx /var/log/nginx
 RUN chmod o+rw /var/log/nginx/*

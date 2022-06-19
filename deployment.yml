@@ -48,5 +48,7 @@ spec:
               value: devpass
             - name: DB_HOST
               value: my-release-with-set-mysql
+            - name: APP_KEY
+              value: base64:7yBl6dF5XgmnYmBOx/GhJxmwhuP3y3GUpQjxXhb5vXg=
 ---
 
